@@ -98,6 +98,9 @@ private:
     bool m_start_with_elite_two = false;      // 在刷开局模式下凹开局干员精二直升
     bool m_only_start_with_elite_two = false; // 只凹开局干员精二直升且不进行作战
 
+    // Hacky solution to forcing maa to continue after getting desired e2
+    int m_post_elite_two_count = 0;
+
     // ------------------ 投资模式 ------------------
     bool m_invest_with_more_score = false; // 投资时招募、购物刷分
 
@@ -113,6 +116,9 @@ public:
     void set_check_clp_pds(bool value) { m_check_clp_pds = value; }
 
     bool get_check_clp_pds() const { return m_check_clp_pds; }
+    // hacky solution
+    void set_post_elite_two_count(int value){m_post_elite_two_count=value;}
+    int get_post_elite_two_count() const {return m_post_elite_two_count;}
 
 private:
     // ------------------ 密文板 ------------------

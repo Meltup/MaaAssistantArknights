@@ -476,17 +476,29 @@ bool asst::RoguelikeRecruitTaskPlugin::lazy_recruit()
                 // 需要凹直升且当前为max难度或者只凹直升时
                 if (start_with_elite_two && (difficulty == INT_MAX || only_start_with_elite_two)) {
                     if (it->elite == 2) {
-                        m_task_ptr->set_enable(false);
+                        Log.info("TEST:ELITE_2 found");
+                        m_config->set_start_with_elite_two(false);
+                        m_config->set_post_elite_two_count(0);
+                        select_oper(*it);
                     }
                     else {
                         // 非只凹直升时重置难度并放弃
                         if (!only_start_with_elite_two) {
                             m_config->set_difficulty(0);
                         }
+                        Log.info("TEST:ELITE_2 not found");
                         m_control_ptr->exit_then_stop();
                     }
                 }
                 else {
+                    int op_count = m_config->get_post_elite_two_count();
+                    if (op_count == 1) {
+                        m_config->set_start_with_elite_two(true);
+                    }
+                    else {
+                        m_config->set_post_elite_two_count(1);
+                    }
+                    Log.info("TEST:SELECTED OPERATOR NORMAL");
                     select_oper(*it);
                 }
                 return true;
